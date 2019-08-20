@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "jest --coverage --runInBand --forceExit --detectOpenHandles"
+    "test": "jest --coverage --runInBand --forceExit"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

@@ -23,7 +23,7 @@ closes #
 # Testing Changes
 - [] No Tests have been changed
 - [] Some Tests have been changed
-- [] All of the Tests have been changed (Please describe happened)
+- [] All of the Tests have been changed (Please describe what happened):
 
 # Checklist:
 
@@ -35,5 +35,3 @@ closes #
 # Test Coverage:
 
 - Overall coverage:
-- Model coverage:
-- Linter coverage:
