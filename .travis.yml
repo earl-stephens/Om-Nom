@@ -4,4 +4,4 @@ node_js:
 services:
   - postgresql
 before_script:
-  - psql -c 'create database Om_Nom_Test;' -U postgres
+  - psql -c 'create database om_nom_test;' -U postgres
