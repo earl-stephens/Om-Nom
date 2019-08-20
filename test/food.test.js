@@ -27,16 +27,4 @@ describe('Food', () => {
     })
   })
 
-  // describe('attributes', () => {
-  //   const food = new Food('pear', 140)
-  //
-  //   it('has a name', () => {
-  //     expect(food.name).toBe('pear');
-  //   })
-  //
-  //   it('has calories', () => {
-  //     expect(food.calories).toBe(100);
-  //   })
-  // })
-
 })
