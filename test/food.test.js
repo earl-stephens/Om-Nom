@@ -1,24 +1,42 @@
-var chai = require('chai');
-var chaiHttp = require('chai-http');
+var request = require('supertest');
 var app = require('../app');
-var expect = require('chai').expect;
-
-// Configure chai
-chai.use(chaiHttp);
-chai.should();
-var Food = require('../models').Food
+var shell = require('shelljs');
+var express = require('express');
+var test = express();
+var Food = require("../models").Food
 
 describe('Food', () => {
-  describe('attributes', () => {
-    const food = new Food('Banana', 100)
+  beforeAll(() => {
+    shell.exec('npx sequelize db:create');
+  });
+  beforeEach(() => {
+    shell.exec('npx sequelize db:migrate');
+    shell.exec('npx sequelize db:seed:all');
+  });
+  afterEach(() => {
+    shell.exec('npx sequelize db:migrate:undo:all');
+  });
 
-    it('has a name', () => {
-      expect(food.name).to.equal('Banana')
-    })
-
-    it('has calories', () => {
-      expect(food.calories).to.equal(100)
+  it('GET request for food index', () => {
+    return request(app)
+    .get('/api/v1/foods')
+    .then(response => {
+      expect(response.statusCode).toBe(200),
+      expect(response.body[0].name).toBe('banana')
+      expect(response.body[0].calories).toBe(100)
     })
   })
+
+  // describe('attributes', () => {
+  //   const food = new Food('pear', 140)
+  //
+  //   it('has a name', () => {
+  //     expect(food.name).toBe('pear');
+  //   })
+  //
+  //   it('has calories', () => {
+  //     expect(food.calories).toBe(100);
+  //   })
+  // })
 
 })
