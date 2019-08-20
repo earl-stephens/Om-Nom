@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
     })
     .catch(error => {
       res.setHeader('Content-Type', 'application/json');
-      res.status(500).send(error);
+      res.status(500).send({ error });
     });
 });
 
@@ -22,7 +22,28 @@ router.get('/:id', function(req, res) {
     })
     .catch(error => {
       res.setHeader('Content-Type', 'application/json');
-      res.status(500).send(error);
+      res.status(500).send({ error });
+    });
+});
+
+router.post('/', function(req, res) {
+  Food.create({
+    name: req.body.food.name,
+    calories: req.body.food.calories
+  })
+    .then(food => {
+      if(food == null) {
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(400).send("Unauthorized");
+      }
+      else {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(201).send(JSON.stringify(food));
+      }
+    })
+    .catch(error => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(500).send({ error });
     });
 });
 

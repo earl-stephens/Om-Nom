@@ -45,6 +45,39 @@ describe('Food', () => {
     })
   })
 
-  
+  it('POST request for individual food', () => {
+    var body = { "food": {
+        "name": "chocolate bar",
+        "calories": "250"
+      }
+    }
+    return request(app)
+    .post('/api/v1/foods').send(body).set("Content-Type", "application/json")
+    .then(response => {
+      expect(response.body.id).toBe(22)
+      expect(response.body.name).toBe('chocolate bar')
+      expect(response.body.calories).toBe(250)
+    })
+  })
+
+  it('POST request for individual food - SADPATH', () => {
+    var body = null
+    return request(app)
+    .post('/api/v1/foods').send(body).set("Content-Type", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(400)
+    })
+  })
+
+  it('POST request for individual food - SAD-SADPATH', () => {
+    var body = {
+      "Earl":"Stephens"
+   }
+    return request(app)
+    .post('/api/v1/foods').send(body).set("Content-Type", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(500)
+    })
+  })
 
 })
