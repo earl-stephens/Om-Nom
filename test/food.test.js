@@ -94,4 +94,20 @@ describe('Food', () => {
     })
   })
 
+  it('can DELETE an individual food', () => {
+    return request(app)
+    .delete('/api/v1/foods/1').set("Content-Type", "application/json").set("Accept", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(204)
+    })
+  })
+
+  it('can DELETE an individual food - SADPATH', () => {
+    return request(app)
+    .delete('/api/v1/foods').set("Content-Type", "application/json").set("Accept", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(404)
+    })
+  })
+
 })
