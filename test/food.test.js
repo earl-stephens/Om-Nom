@@ -80,4 +80,18 @@ describe('Food', () => {
     })
   })
 
+  it('PUT request to update individual food', () => {
+    var body = { "food": {
+        "name": "banana",
+        "calories": "125"
+      }
+    }
+    return request(app)
+    .put('/api/v1/foods/1').send(body).set("Content-Type", "application/json").set("Accept", "application/json")
+    .then(response => {
+      expect(response.body.name).toBe('banana')
+      expect(response.body.calories).toBe(125)
+    })
+  })
+
 })
