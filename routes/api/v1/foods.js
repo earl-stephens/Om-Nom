@@ -75,4 +75,21 @@ router.put('/:id', function(req, res) {
     });
 });
 
+router.delete('/:id', function(req, res) {
+  Food.destroy( { where: { id: req.params.id } } )
+  .then(food => {
+    if(food == null) {
+      res.setHeader('Content-Type', 'application/json');
+      return res.status(404).send("Not Found");
+    }
+    else {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(204).send();
+    }
+    })
+    .catch(error => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(500).send({ error });
+    });
+});
 module.exports = router;
