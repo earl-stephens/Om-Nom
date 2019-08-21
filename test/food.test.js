@@ -110,4 +110,12 @@ describe('Food', () => {
     })
   })
 
+  it('can DELETE an individual food - SAD-SADPATH', () => {
+    return request(app)
+    .delete('/api/v1/foods/abc').set("Content-Type", "application/json").set("Accept", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(500)
+    })
+  })
+
 })
