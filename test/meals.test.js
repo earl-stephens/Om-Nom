@@ -24,9 +24,12 @@ describe('Meal', () => {
     .set("Content-Type", "application/json")
     .set("Accept", "application/json")
     .then(response => {
-      console.log(response.body);
+      console.log(response.body[0].foods[0]);
       expect(response.body[0].name).toBe('Breakfast')
-      // expect(response.body[0].foods[0]).toBe("[]")
+      expect(response.body[0].foods.length).toBe(3)
+      expect(Object.keys(response.body[0].foods[0])).toContain("id")
+      expect(Object.keys(response.body[0].foods[0])).toContain("name")
+      expect(Object.keys(response.body[0].foods[0])).toContain("calories")
     })
   })
 });

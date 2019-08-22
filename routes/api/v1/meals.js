@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
       {
       model: Food,
       as: 'foods',
-      attributes: ["name"],
+      attributes: ["id", "name", "calories"],
       through: { attributes: []},
     },
   ],
