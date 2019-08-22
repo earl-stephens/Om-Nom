@@ -37,7 +37,7 @@ describe('Meal', () => {
     .get('/api/v1/meals/2')
     .set("Content-Type", "application/json")
     .set("Accept", "application/json")
-    .then(response => {console.log(response.body);
+    .then(response => {
       expect(response.body[0].name).toBe('Lunch')
       expect(response.body[0].foods.length).toBe(3)
       expect(Object.keys(response.body[0].foods[0])).toContain("id")

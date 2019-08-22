@@ -26,7 +26,7 @@ router.get('/', function(req, res) {
     });
 });
 
-router.get('/:id', function(req, res) {console.log(req.params.id);
+router.get('/:id', function(req, res) {
   Meal.findAll({ where: { id: req.params.id },
     include: [
       {
@@ -38,13 +38,13 @@ router.get('/:id', function(req, res) {console.log(req.params.id);
       ],
     }
   )
-    .then(meal => {console.log(meal[0].dataValues.name);
-      if(meal[0].dataValues.name == undefined) {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(404).send(JSON.stringify("Not Found"));
-      } else {
+    .then(meal => {
+      if (meal[0] instanceof Meal) {
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(JSON.stringify(meal));
+      } else {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(404).send(JSON.stringify("Not Found"));
       }
     })
     .catch(error => {
@@ -52,4 +52,5 @@ router.get('/:id', function(req, res) {console.log(req.params.id);
       res.status(500).send({ error });
     });
 });
+
 module.exports = router;
