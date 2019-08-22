@@ -31,4 +31,28 @@ describe('Meal', () => {
       expect(Object.keys(response.body[0].foods[0])).toContain("calories")
     })
   })
+
+  it('GET request for an individual meal', () => {
+    return request(app)
+    .get('/api/v1/meals/2')
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .then(response => {console.log(response.body);
+      expect(response.body[0].name).toBe('Lunch')
+      expect(response.body[0].foods.length).toBe(3)
+      expect(Object.keys(response.body[0].foods[0])).toContain("id")
+      expect(Object.keys(response.body[0].foods[0])).toContain("name")
+      expect(Object.keys(response.body[0].foods[0])).toContain("calories")
+    })
+  });
+
+  it('GET request for an individual meal - SADPATH', () => {
+    return request(app)
+    .get('/api/v1/meals/1000')
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .then(response => {console.log(response.body);
+      expect(response.statusCode).toBe(404)
+    })
+  })
 });
