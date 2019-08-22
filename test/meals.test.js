@@ -54,5 +54,16 @@ describe('Meal', () => {
     .then(response => {console.log(response.body);
       expect(response.statusCode).toBe(404)
     })
-  })
+  });
+
+  fit('POST request to add food to a meal', () => {
+    return request(app)
+    .post('/api/v1/meals/2/foods/9')
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .then(response => {console.log(response.body);
+      expect(response.statusCode).toBe(201)
+      expect(Object.keys(response.body)).toContain("message")
+    })
+  });
 });
