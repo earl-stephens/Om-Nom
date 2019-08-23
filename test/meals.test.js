@@ -96,7 +96,38 @@ describe('Meal', () => {
     .set("Accept", "application/json")
     .then(response => {
       expect(response.statusCode).toBe(500)
-      // expect(response.body).toContain("Food not found")
+    })
+  });
+
+  it('DELETE request to delete a food from a meal', () => {
+    return request(app)
+    .delete('/api/v1/meals/2/foods/9')
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(204)
+    })
+  });
+
+  it('DELETE request to remove food from a meal - SADPATH for no meal', () => {
+    return request(app)
+    .delete('/api/v1/meals/200/foods/9')
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(404)
+      expect(response.body).toContain("Meal not found")
+    })
+  });
+
+  it('DELETE request to remove food from a meal - SADPATH for no food', () => {
+    return request(app)
+    .delete('/api/v1/meals/2/foods/900')
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(404)
+      expect(response.body).toContain("Food not found")
     })
   });
 });
