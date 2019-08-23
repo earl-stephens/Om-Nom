@@ -82,4 +82,33 @@ router.post('/:mealId/foods/:foodId', function(req, res) {
   });
 });
 
+router.delete('/:mealId/foods/:foodId', function(req, res) {
+  Meal.findByPk(req.params.mealId)
+  .then(meals => {
+    if (meals) {
+      return Food.findByPk(req.params.foodId)
+      .then(foods => {
+        if (foods) {
+          return meals.removeFood(foods)
+          .then(newmeal => {
+            var message = {"message": `successfully added ${foods.name} to ${meals.name}`};
+            res.setHeader('Content-Type', 'application/json');
+            res.status(204).send(JSON.stringify(message));
+          })
+        } else {
+          res.setHeader('Content-Type', 'application/json');
+          res.status(404).send(JSON.stringify("Food not found"));
+        }
+      })
+    } else {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(404).send(JSON.stringify("Meal not found"));
+    }
+  })
+  .catch(error => {console.log(error);
+    res.setHeader('Content-Type', 'application/json');
+    res.status(500).send({ error });
+  });
+});
+
 module.exports = router;
