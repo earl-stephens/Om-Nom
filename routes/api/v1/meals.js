@@ -54,29 +54,32 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/:mealId/foods/:foodId', function(req, res) {
-  var food = Food.findAll({where: {id: req.params.foodId}});
-  console.log(food);
-  var meal = Meal.findAll({where: {id: req.params.mealId}});
-  MealFoods.create({
-    mealId: req.params.mealId,
-    foodId: req.params.foodId
-  })
-    .then(mealfoods => {
-      var message = {"message": `Successfully added ${food.name} to ${meal.name}`}
-    })
-    .then(mealfoods => {
-      if (mealfoods instanceof MealFoods) {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(201).send(JSON.stringify(message));
-      } else {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(404).send(JSON.stringify("Not Found"));
-      }
+  Meal.findByPk(req.params.mealId)
+  .then(meals => {
+    if (meals) {
+      return Food.findByPk(req.params.foodId)
+      .then(foods => {
+        if (foods) {
+          return meals.addFood(foods)
+          .then(newmeal => {
+            var message = {"message": `successfully added ${foods.name} to ${meals.name}`};
+            res.setHeader('Content-Type', 'application/json');
+            res.status(201).send(JSON.stringify(message));
+          })
+        } else {
+          res.setHeader('Content-Type', 'application/json');
+          res.status(404).send(JSON.stringify("Food not found"));
+        }
       })
-    .catch(error => {console.log(error);
+    } else {
       res.setHeader('Content-Type', 'application/json');
-      res.status(500).send({ error });
-    });
+      res.status(404).send(JSON.stringify("Meal not found"));
+    }
+  })
+  .catch(error => {console.log(error);
+    res.setHeader('Content-Type', 'application/json');
+    res.status(500).send({ error });
+  });
 });
 
 module.exports = router;
