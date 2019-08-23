@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Meal = require('../../../models').Meal;
 var Food = require('../../../models').Food;
-var MealFood = require('../../../models').MealFood;
+var MealFoods = require('../../../models').MealFoods;
 var pry = require('pryjs')
 
 router.get('/', function(req, res) {
@@ -51,6 +51,35 @@ router.get('/:id', function(req, res) {
       res.setHeader('Content-Type', 'application/json');
       res.status(500).send({ error });
     });
+});
+
+router.post('/:mealId/foods/:foodId', function(req, res) {
+  Meal.findByPk(req.params.mealId)
+  .then(meals => {
+    if (meals) {
+      return Food.findByPk(req.params.foodId)
+      .then(foods => {
+        if (foods) {
+          return meals.addFood(foods)
+          .then(newmeal => {
+            var message = {"message": `successfully added ${foods.name} to ${meals.name}`};
+            res.setHeader('Content-Type', 'application/json');
+            res.status(201).send(JSON.stringify(message));
+          })
+        } else {
+          res.setHeader('Content-Type', 'application/json');
+          res.status(404).send(JSON.stringify("Food not found"));
+        }
+      })
+    } else {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(404).send(JSON.stringify("Meal not found"));
+    }
+  })
+  .catch(error => {console.log(error);
+    res.setHeader('Content-Type', 'application/json');
+    res.status(500).send({ error });
+  });
 });
 
 module.exports = router;

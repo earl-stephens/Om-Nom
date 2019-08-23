@@ -54,5 +54,49 @@ describe('Meal', () => {
     .then(response => {console.log(response.body);
       expect(response.statusCode).toBe(404)
     })
-  })
+  });
+
+  it('POST request to add food to a meal', () => {
+    return request(app)
+    .post('/api/v1/meals/2/foods/9')
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(201)
+      expect(Object.keys(response.body)).toContain("message")
+    })
+  });
+
+  it('POST request to add food to a meal - SADPATH for no meal', () => {
+    return request(app)
+    .post('/api/v1/meals/200/foods/9')
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(404)
+      expect(response.body).toContain("Meal not found")
+    })
+  });
+
+  it('POST request to add food to a meal - SADPATH for no food', () => {
+    return request(app)
+    .post('/api/v1/meals/2/foods/900')
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(404)
+      expect(response.body).toContain("Food not found")
+    })
+  });
+
+  it('POST request to add food to a meal - SADPATH for server error', () => {
+    return request(app)
+    .post('/api/v1/meals/2/foods/abc')
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(500)
+      // expect(response.body).toContain("Food not found")
+    })
+  });
 });
