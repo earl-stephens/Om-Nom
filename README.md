@@ -30,3 +30,9 @@ The second endpoint returns a specific food currently in the database.  The user
 The third endpoint allows a user to create a food with the attributes of name and calories given in the body of the request.  The user makes a POST request to `api/v1/foods`.  A successful request will return the food that was just created.  If the food could not be created, the app returns a 400 status code.  A successful response is show below.
 
 ![post_new_food](screenshots/post_new_food.png)
+
+The fourth endpoint allows a user to update an existing food in the database.  The user passes in the updated parameters in the body of the request.  The user makes a PATCH request to `api/v1/foods/:id`.  A successful request will return the food that was just created.  If the food could not be updated, the app returns a 400 status code.  A successful response is shown below.
+
+![patch_food](screenshots/patch_food.png)
+
+The fifth endpoint allows a user to delete a food from the database.  
