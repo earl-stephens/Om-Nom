@@ -21,9 +21,9 @@ router.get('/food_search', function(req,res) {
 });
 
 router.get('/calorie_search', function(req,res) {
-  var calorieMin = req.query.q.split('-')[0];
-  var calorieMax = req.query.q.split('-')[1];
-  fetch(`https://om-nom-edamam.herokuapp.com/api/v1/recipes/calorie_search?q=${calorieMin}-${calorieMax}`, {headers: {"Accept": "application/json", "Content-Type": "application/json"}})
+  // var calorieMin = req.query.q.split('-')[0];
+  // var calorieMax = req.query.q.split('-')[1];
+  fetch(`https://om-nom-edamam.herokuapp.com/api/v1/recipes/calorie_search?q=${req.query.q}`, {headers: {"Accept": "application/json", "Content-Type": "application/json"}})
   .then(res => res.json())
   .then(json => {
     res.setHeader("Content-Type", "application/json");
