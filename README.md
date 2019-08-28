@@ -35,4 +35,10 @@ The fourth endpoint allows a user to update an existing food in the database.  T
 
 ![patch_food](screenshots/patch_food.png)
 
-The fifth endpoint allows a user to delete a food from the database.  
+The fifth endpoint allows a user to delete a food from the database.  The user makes a DELETE request to `api/v1/foods/:id`.  A successful request will return a 204 status code.  An unsuccessful request will return a 404 status code.  A successful response is shown below.
+
+![delete_food](screenshots/delete_food.png)
+
+### Meal Endpoints
+
+The first meal endpoint returns all meals in the database along with their associated foods.  The user makes a GET request to `api/v1/meals`.  A successful response is shown below.
