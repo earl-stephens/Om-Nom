@@ -4,16 +4,14 @@
     "password": null,
     "database": "om_nom_development",
     "host": "127.0.0.1",
-    "dialect": "postgres",
-    "operatorsAliases": false
+    "dialect": "postgres"
   },
   "test": {
     "username": "",
     "password": null,
     "database": "om_nom_test",
     "host": "127.0.0.1",
-    "dialect": "postgres",
-    "operatorsAliases": false
+    "dialect": "postgres"
   },
   "production": {
     "use_env_variable": "DATABASE_URL"
