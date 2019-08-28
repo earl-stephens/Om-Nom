@@ -33,4 +33,17 @@ router.get('/calorie_search', function(req,res) {
   });
 });
 
+router.get('/calorie_sort', function(req,res) {
+  fetch(`https://om-nom-edamam.herokuapp.com/api/v1/recipes/calorie_sort?q=${req.query.q}`, {headers: {"Accept": "application/json", "Content-Type": "application/json"}})
+  .then(res => res.json())
+  .then(json => {
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).send(JSON.stringify(json));
+  })
+  .catch(error => {
+    res.setHeader("Content-Type", "application/json");
+    res.status(500).send({error});
+  });
+});
+
 module.exports = router;
