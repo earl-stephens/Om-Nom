@@ -4,7 +4,6 @@ var shell = require('shelljs');
 var express = require('express');
 var test = express();
 var Food = require("../models").Food
-//var Food = require("../models").Food
 
 describe('Meal', () => {
   beforeAll(() => {
