@@ -42,3 +42,23 @@ describe('recipe calories request', () =>{
     })
   });
 });
+
+describe('recipes request by health concerns', () =>{
+  it('GET recipes based on queried health concern', () => {
+    return request(app)
+    .get('/api/v1/recipes/health_search?q=peanut_free')
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(200)
+      expect(Object.keys(response.body[0])).toContain('title')
+      expect(Object.keys(response.body[0])).toContain('cookTime')
+      expect(Object.keys(response.body[0])).toContain('caloriesPerServing')
+      expect(Object.keys(response.body[0])).toContain('servingAmount')
+      expect(Object.keys(response.body[0])).toContain('image')
+      expect(Object.keys(response.body[0])).toContain('url')
+      expect(Object.keys(response.body[0])).toContain('healthDetails')
+      expect(Object.keys(response.body[0])).toContain('ingredients')
+    })
+  });
+});
