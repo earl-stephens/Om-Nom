@@ -11,7 +11,7 @@ describe('recipe requests', () =>{
     .get('/api/v1/recipes/food_search?q=beef')
     .set("Content-Type", "application/json")
     .set("Accept", "application/json")
-    .then(response => {console.log(response.body);
+    .then(response => {
       expect(Object.keys(response.body[0])).toContain('title')
       expect(Object.keys(response.body[0])).toContain('cookTime')
       expect(Object.keys(response.body[0])).toContain('caloriesPerServing')
@@ -30,7 +30,7 @@ describe('recipe calories request', () =>{
     .get('/api/v1/recipes/calorie_search?q=150-300')
     .set("Content-Type", "application/json")
     .set("Accept", "application/json")
-    .then(response => {console.log(response.body);
+    .then(response => {
       expect(Object.keys(response.body[0])).toContain('title')
       expect(Object.keys(response.body[0])).toContain('cookTime')
       expect(Object.keys(response.body[0])).toContain('caloriesPerServing')
