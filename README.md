@@ -226,7 +226,7 @@ Response
 
 * The second meal endpoint returns a specific meal and the foods for that meal.  If the meal is not found, a 404 status code is returned.
 
-`GET api/v1/meals/:meal_id/foods`
+`GET api/v1/meals/:meal_id`
 
 Parameters
 
