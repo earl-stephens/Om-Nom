@@ -71,6 +71,27 @@ describe('recipe sorted time_sort request', () => {
     .set("Accept", "application/json")
     .then(response => {
       expect(response.statusCode).toBe(200)
+
+      expect(Object.keys(response.body[0])).toContain('title')
+      expect(Object.keys(response.body[0])).toContain('cookTime')
+      expect(Object.keys(response.body[0])).toContain('caloriesPerServing')
+      expect(Object.keys(response.body[0])).toContain('servingAmount')
+      expect(Object.keys(response.body[0])).toContain('image')
+      expect(Object.keys(response.body[0])).toContain('url')
+      expect(Object.keys(response.body[0])).toContain('healthDetails')
+      expect(Object.keys(response.body[0])).toContain('ingredients')
+    })
+  });
+});
+
+describe('recipes calorie sorted', () =>{
+  it('GET recipes for a food type sorted by calories', () => {
+    return request(app)
+    .get('/api/v1/recipes/calorie_sort?q=beef')
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .then(response => {
+      expect(response.statusCode).toBe(200)
       expect(Object.keys(response.body[0])).toContain('title')
       expect(Object.keys(response.body[0])).toContain('cookTime')
       expect(Object.keys(response.body[0])).toContain('caloriesPerServing')
