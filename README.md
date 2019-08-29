@@ -384,6 +384,12 @@ The fifth recipe endpoint allows a user to get a list of recipes for a particula
 }
 ```
 
+## Database
+
+The database uses PostgreSQL.  There are three tables: Foods, Meals, MealFoods.  The schema for the database is shown below.
+
+![db_schema](db_schema.png)
+
 ## Tech Stack
 
 This application uses:
@@ -391,6 +397,7 @@ Node version 10.16.2
 Express version 4.16.4
 Sequelize version 5.15.1
 Jest version 24.9.0
+PostgreSQL version 7.12.1
 
 ## Initial Set Up and Testing
 
