@@ -3,7 +3,6 @@ var router = express.Router();
 var Meal = require('../../../models').Meal;
 var Food = require('../../../models').Food;
 var MealFoods = require('../../../models').MealFoods;
-var pry = require('pryjs');
 var fetch = require('node-fetch');
 
 router.get('/food_search', function(req,res) {
